@@ -6,7 +6,7 @@ import { GetRidesListQueryInputDTO } from '../input-dto/get-rides-list-query.inp
 import { applyDefaultPaginationSettings } from '../../../core/utils/apply-default-pagination-settings ';
 import { ridesQueryRepository } from '../../repositories/rides.query-repository';
 
-export async function getRidesListHandler(req: Request<{}, {}, {}, GetRidesListQueryInputDTO>, res: Response) {
+export const getRidesListHandler = async (req: Request<{}, {}, {}, GetRidesListQueryInputDTO>, res: Response) => {
   try {
     const sanitizedQueryInput = matchedData<GetRidesListQueryInputDTO>(req, {
       locations: ['query'],
@@ -26,4 +26,4 @@ export async function getRidesListHandler(req: Request<{}, {}, {}, GetRidesListQ
   } catch (error: unknown) {
     errorsHandler(error, res);
   }
-}
+};

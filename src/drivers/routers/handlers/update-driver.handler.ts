@@ -6,7 +6,10 @@ import { UpdateDriverDataInputDTO } from '../input-dto/update-driver-data.input-
 
 /*Функция-обработчик "updateDriverHandler()" для PUT-запросов для изменения данных водителя по ID при помощи
 URI-параметров.*/
-export async function updateDriverHandler(req: Request<{ id: string }, {}, UpdateDriverDataInputDTO>, res: Response) {
+export const updateDriverHandler = async (
+  req: Request<{ id: string }, {}, UpdateDriverDataInputDTO>,
+  res: Response,
+) => {
   try {
     const id = req.params.id;
     /*Просим сервис "driversService" изменить данные водителя по ID.*/
@@ -17,4 +20,4 @@ export async function updateDriverHandler(req: Request<{ id: string }, {}, Updat
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

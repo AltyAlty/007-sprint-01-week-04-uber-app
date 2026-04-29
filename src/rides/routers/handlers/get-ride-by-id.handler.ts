@@ -4,7 +4,7 @@ import { errorsHandler } from '../../../core/errors/errors.handler';
 import { HttpStatus } from '../../../core/types/http-statuses';
 import { ridesQueryRepository } from '../../repositories/rides.query-repository';
 
-export async function getRideByIdHandler(req: Request<{ id: string }>, res: Response) {
+export const getRideByIdHandler = async (req: Request<{ id: string }>, res: Response) => {
   try {
     const id = req.params.id;
     const ride = await ridesQueryRepository.findById(id);
@@ -13,4 +13,4 @@ export async function getRideByIdHandler(req: Request<{ id: string }>, res: Resp
   } catch (error: unknown) {
     errorsHandler(error, res);
   }
-}
+};

@@ -7,7 +7,7 @@ import { CreateDriverDataInputDTO } from '../input-dto/create-driver-data.input-
 import { driversQueryRepository } from '../../repositories/drivers.query-repository';
 
 /*Функция-обработчик "createDriverHandler()" для POST-запросов для добавления нового водителя.*/
-export async function createDriverHandler(req: Request<{}, {}, CreateDriverDataInputDTO>, res: Response) {
+export const createDriverHandler = async (req: Request<{}, {}, CreateDriverDataInputDTO>, res: Response) => {
   try {
     /*Просим сервис "driversService" создать нового водителя.*/
     const createdDriverId = await driversService.create(req.body.data.attributes);
@@ -22,4 +22,4 @@ export async function createDriverHandler(req: Request<{}, {}, CreateDriverDataI
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

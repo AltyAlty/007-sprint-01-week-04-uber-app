@@ -6,10 +6,10 @@ import { GetRidesListQueryInputDTO } from '../../../rides/routers/input-dto/get-
 
 /*Функция-обработчик "getDriverRidesListHandler()" для GET-запросов для получения данных по всем поездкам водителя при
 помощи URI-параметров и query-параметров.*/
-export async function getDriverRidesListHandler(
+export const getDriverRidesListHandler = async (
   req: Request<{ id: string }, {}, {}, GetRidesListQueryInputDTO>,
   res: Response,
-) {
+) => {
   try {
     const driverId = req.params.id;
     const queryInput = req.query;
@@ -31,4 +31,4 @@ export async function getDriverRidesListHandler(
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

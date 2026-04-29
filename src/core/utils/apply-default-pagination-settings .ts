@@ -10,12 +10,12 @@ import { defaultPaginationSettingsType } from '../types/pagination/default-pagin
 "defaultPaginationSettingsType", а может быть вообще пустым объектом.
 3. ": defaultPaginationSettingsType<P>": на выходе функция возвращает полный объект типа
 "defaultPaginationSettingsType".*/
-export function applyDefaultPaginationSettings<P = string>(
+export const applyDefaultPaginationSettings = <P = string>(
   query: Partial<defaultPaginationSettingsType<P>>,
-): defaultPaginationSettingsType<P> {
+): defaultPaginationSettingsType<P> => {
   return {
     ...defaultPaginationSettings,
     ...query,
     sortBy: (query.sortBy ?? defaultPaginationSettings.sortBy) as P,
   };
-}
+};

@@ -5,7 +5,7 @@ import { WrappedDriverOutputDTO } from '../../routers/output-dto/wrapped-driver.
 
 /*Функция "mapToWrappedDriverOutputDTO()" преобразовывает данные по водителю из БД в подготовленные для отправки клиенту
 данные по водителю.*/
-export function mapToWrappedDriverOutputDTO(driver: WithId<DriverType>): WrappedDriverOutputDTO {
+export const mapToWrappedDriverOutputDTO = (driver: WithId<DriverType>): WrappedDriverOutputDTO => {
   return {
     data: {
       type: ResourceType.Drivers,
@@ -19,4 +19,4 @@ export function mapToWrappedDriverOutputDTO(driver: WithId<DriverType>): Wrapped
       },
     },
   };
-}
+};

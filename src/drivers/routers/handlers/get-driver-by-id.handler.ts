@@ -15,7 +15,7 @@ import { driversQueryRepository } from '../../repositories/drivers.query-reposit
 4. На четвертом месте в типе идут Query-параметры.
 
 Функция-обработчик "getDriverByIdHandler()" для GET-запросов для поиска водителя по ID при помощи URI-параметров.*/
-export async function getDriverByIdHandler(req: Request<{ id: string }>, res: Response) {
+export const getDriverByIdHandler = async (req: Request<{ id: string }>, res: Response) => {
   try {
     const id = req.params.id;
     /*Просим query-репозиторий "driversQueryRepository" найти данные по водителю по ID в БД.*/
@@ -28,4 +28,4 @@ export async function getDriverByIdHandler(req: Request<{ id: string }>, res: Re
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

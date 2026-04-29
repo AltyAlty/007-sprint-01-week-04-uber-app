@@ -3,7 +3,7 @@ import { ResourceType } from '../../../core/types/domain/resource-type';
 import { WrappedRideOutputDTO } from '../../routers/output-dto/wrapped-ride.output-dto';
 import { RideType } from '../../types/ride.type';
 
-export function mapToWrappedRideOutputDTO(ride: WithId<RideType>): WrappedRideOutputDTO {
+export const mapToWrappedRideOutputDTO = (ride: WithId<RideType>): WrappedRideOutputDTO => {
   return {
     data: {
       type: ResourceType.Rides,
@@ -20,4 +20,4 @@ export function mapToWrappedRideOutputDTO(ride: WithId<RideType>): WrappedRideOu
       },
     },
   };
-}
+};

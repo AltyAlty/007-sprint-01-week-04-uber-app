@@ -5,7 +5,7 @@ import { driversService } from '../../application/drivers.service';
 
 /*Функцию-обработчик "deleteDriverHandler()" для DELETE-запросов для удаления водителя по ID при помощи
 URI-параметров.*/
-export async function deleteDriverHandler(req: Request<{ id: string }>, res: Response) {
+export const deleteDriverHandler = async (req: Request<{ id: string }>, res: Response) => {
   try {
     const id = req.params.id;
     /*Просим сервис "driversService" удалить водителя по ID.*/
@@ -16,4 +16,4 @@ export async function deleteDriverHandler(req: Request<{ id: string }>, res: Res
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

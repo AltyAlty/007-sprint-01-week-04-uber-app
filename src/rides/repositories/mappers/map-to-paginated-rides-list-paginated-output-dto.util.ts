@@ -3,10 +3,10 @@ import { ResourceType } from '../../../core/types/domain/resource-type';
 import { RideType } from '../../types/ride.type';
 import { PaginatedRidesListOutputDTO } from '../../routers/output-dto/paginated-rides-list.output-dto';
 
-export function mapToPaginatedRidesListOutputDTO(
+export const mapToPaginatedRidesListOutputDTO = (
   rides: WithId<RideType>[],
   meta: { pageNumber: number; pageSize: number; totalCount: number },
-): PaginatedRidesListOutputDTO {
+): PaginatedRidesListOutputDTO => {
   return {
     meta: {
       page: meta.pageNumber,
@@ -29,4 +29,4 @@ export function mapToPaginatedRidesListOutputDTO(
       },
     })),
   };
-}
+};

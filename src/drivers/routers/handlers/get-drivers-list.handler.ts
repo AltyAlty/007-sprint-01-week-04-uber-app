@@ -8,7 +8,7 @@ import { driversQueryRepository } from '../../repositories/drivers.query-reposit
 
 /*Функция-обработчик "getDriversListHandler()" для GET-запросов для получения данных по всем водителям при помощи
 query-параметров.*/
-export async function getDriversListHandler(req: Request<{}, {}, {}, GetDriversListQueryInputDTO>, res: Response) {
+export const getDriversListHandler = async (req: Request<{}, {}, {}, GetDriversListQueryInputDTO>, res: Response) => {
   try {
     /*Функция "matchedData()" из библиотеки express-validator берет из объекта "req" только те поля, которые ранее
     прошли через валидаторы и санитайзеры на основе библиотеки express-validator.*/
@@ -41,4 +41,4 @@ export async function getDriversListHandler(req: Request<{}, {}, {}, GetDriversL
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);
   }
-}
+};

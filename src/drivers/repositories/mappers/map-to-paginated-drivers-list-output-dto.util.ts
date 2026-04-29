@@ -6,10 +6,10 @@ import { DriverOutputDTO } from '../../routers/output-dto/driver.output-dto';
 
 /*Функция "mapToPaginatedDriversListOutputDTO()" преобразовывает данные по водителям из БД в подготовленные для пагинации
 данные по водителям.*/
-export function mapToPaginatedDriversListOutputDTO(
+export const mapToPaginatedDriversListOutputDTO = (
   drivers: WithId<DriverType>[],
   meta: { pageNumber: number; pageSize: number; totalCount: number },
-): PaginatedDriversListOutputDTO {
+): PaginatedDriversListOutputDTO => {
   return {
     meta: {
       page: meta.pageNumber,
@@ -31,4 +31,4 @@ export function mapToPaginatedDriversListOutputDTO(
       }),
     ),
   };
-}
+};
