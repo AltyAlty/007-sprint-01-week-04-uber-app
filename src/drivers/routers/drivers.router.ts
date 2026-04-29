@@ -16,7 +16,7 @@ import { getDriverRidesListHandler } from './handlers/get-driver-rides-list.hand
 import { DriverSortFieldInputDTO } from './input-dto/driver-sort-field.input-dto';
 import { RideSortFieldInputDTO } from '../../rides/routers/input-dto/ride-sort-field.input-dto';
 
-/*Создаем роутер из Express для работы с данными по водителям.*/
+/*Роутер из Express для работы с данными по водителям.*/
 export const driversRouter = Router({});
 /*Таким образом можно применить какой-то middleware ко всем маршрутам.*/
 driversRouter.use(superAdminGuardMiddleware);

@@ -3,7 +3,7 @@ import { Express } from 'express';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import { SETTINGS } from '../../../src/core/settings/settings';
 
-/*Создаем функцию "clearDb()" для очистки БД перед запуском тестов.*/
+/*Функция "clearDb()" для очистки БД перед запуском тестов.*/
 export const clearDb = async (app: Express) => {
   await request(app).delete(`${SETTINGS.TESTING_PATH}/all-data`).expect(HttpStatus.NoContent);
   return;

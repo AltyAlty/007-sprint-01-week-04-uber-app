@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { HttpStatus } from '../../core/types/http-statuses';
 import { driversCollection, ridesCollection } from '../../db/mongodb/mongo.db';
 
-/*Создаем роутер из Express для тестирования приложения.*/
+/*Роутер из Express для тестирования приложения.*/
 export const testingRouter = Router({});
 
 /*Конфигурируем роутер "testingRouter".*/

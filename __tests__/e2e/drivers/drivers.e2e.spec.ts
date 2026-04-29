@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import request from 'supertest';
 import { setupApp } from '../../../src/setup-app';
-import { CreateDriverInputDTO } from '../../../src/drivers/dto/create-driver.input-dto';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import { generateBasicAuthToken } from '../../utils/auth/generate-admin-auth-token';
 import { clearDb } from '../../utils/db/clear-db';
@@ -12,8 +11,8 @@ import { getDriverById } from '../../utils/drivers/get-driver-by-id';
 import { updateDriverById } from '../../utils/drivers/update-driver-by-id';
 import { runDB, stopDb } from '../../../src/db/mongodb/mongo.db';
 import { SETTINGS } from '../../../src/core/settings/settings';
-import { UpdateDriverInputDTO } from '../../../src/drivers/dto/update-driver.input-dto';
-import { VehicleFeature } from '../../../src/drivers/domain/driver.type';
+import { UpdateDriverAttributesInputDTO } from '../../../src/drivers/application/dto/update-driver-attributes.input-dto';
+import { VehicleFeature } from '../../../src/drivers/types/vehicle-features.type';
 
 /*Описываем тестовый набор.*/
 describe('Drivers API', () => {
@@ -35,46 +34,40 @@ describe('Drivers API', () => {
 
   /*Описываем тест, проверяющий добавление нового водителя в БД.*/
   it('✅ should create a driver; POST /api/drivers', async () => {
-    const newDriver: CreateDriverInputDTO = {
+    await createDriver(app, {
       ...getCreateDriverInputDTO(),
       name: 'Feodor',
       email: 'feodor@example.com',
-    };
-
-    await createDriver(app, newDriver);
+    });
   });
 
   /*Описываем тест, проверяющий получение данных по всем водителями из БД.*/
   it('✅ should return a list of drivers; GET /api/drivers', async () => {
-    await createDriver(app);
-    await createDriver(app);
+    await Promise.all([createDriver(app), createDriver(app)]);
 
-    const driverListResponse = await request(app)
+    const getDriverListResponse = await request(app)
       .get(SETTINGS.DRIVERS_PATH)
       .set('Authorization', adminToken)
       .expect(HttpStatus.Ok);
 
-    expect(driverListResponse.body).toBeInstanceOf(Array);
-    expect(driverListResponse.body.length).toBeGreaterThanOrEqual(2);
+    expect(getDriverListResponse.body.data).toBeInstanceOf(Array);
+    expect(getDriverListResponse.body.data.length).toBeGreaterThanOrEqual(2);
   });
 
   /*Описываем тест, проверяющий получение данных по водителю по ID из БД.*/
   it('✅ should return a driver by ID; GET /api/drivers/:id', async () => {
     const createdDriver = await createDriver(app);
-    const driver = await getDriverById(app, createdDriver.id);
-
-    expect(driver).toEqual({
-      ...createdDriver,
-      id: expect.any(String),
-      createdAt: expect.any(String),
-    });
+    const createdDriverId = createdDriver.data.id;
+    const driver = await getDriverById(app, createdDriverId);
+    expect(driver).toEqual({ ...createdDriver });
   });
 
   /*Описываем тест, проверяющий изменение данных по водителю по ID в БД.*/
   it('✅ should update a driver by ID; PUT /api/drivers/:id', async () => {
     const createdDriver = await createDriver(app);
+    const createdDriverId = createdDriver.data.id;
 
-    const driverUpdateData: UpdateDriverInputDTO = {
+    const updateDriverData: UpdateDriverAttributesInputDTO = {
       name: 'Updated Name',
       phoneNumber: '999-888-7777',
       email: 'updated@example.com',
@@ -86,21 +79,21 @@ describe('Drivers API', () => {
       vehicleFeatures: [VehicleFeature.ChildSeat],
     };
 
-    await updateDriverById(app, createdDriver.id, driverUpdateData);
-    const driverResponse = await getDriverById(app, createdDriver.id);
+    await updateDriverById(app, createdDriverId, updateDriverData);
+    const getDriverResponse = await getDriverById(app, createdDriverId);
+    expect(getDriverResponse.data.id).toBe(createdDriverId);
 
-    expect(driverResponse).toEqual({
-      id: createdDriver.id,
-      name: driverUpdateData.name,
-      phoneNumber: driverUpdateData.phoneNumber,
-      email: driverUpdateData.email,
+    expect(getDriverResponse.data.attributes).toEqual({
+      name: updateDriverData.name,
+      phoneNumber: updateDriverData.phoneNumber,
+      email: updateDriverData.email,
       vehicle: {
-        description: driverUpdateData.vehicleDescription,
-        features: driverUpdateData.vehicleFeatures,
-        licensePlate: driverUpdateData.vehicleLicensePlate,
-        make: driverUpdateData.vehicleMake,
-        model: driverUpdateData.vehicleModel,
-        year: driverUpdateData.vehicleYear,
+        description: updateDriverData.vehicleDescription,
+        features: updateDriverData.vehicleFeatures,
+        licensePlate: updateDriverData.vehicleLicensePlate,
+        make: updateDriverData.vehicleMake,
+        model: updateDriverData.vehicleModel,
+        year: updateDriverData.vehicleYear,
       },
       createdAt: expect.any(String),
     });
@@ -109,14 +102,15 @@ describe('Drivers API', () => {
   /*Описываем тест, проверяющий удаление водителя по ID в БД.*/
   it('✅ should delete a driver by ID; DELETE /api/drivers/:id', async () => {
     const createdDriver = await createDriver(app);
+    const createdDriverId = createdDriver.data.id;
 
     await request(app)
-      .delete(`${SETTINGS.DRIVERS_PATH}/${createdDriver.id}`)
+      .delete(`${SETTINGS.DRIVERS_PATH}/${createdDriverId}`)
       .set('Authorization', adminToken)
       .expect(HttpStatus.NoContent);
 
     await request(app)
-      .get(`${SETTINGS.DRIVERS_PATH}/${createdDriver.id}`)
+      .get(`${SETTINGS.DRIVERS_PATH}/${createdDriverId}`)
       .set('Authorization', adminToken)
       .expect(HttpStatus.NotFound);
   });

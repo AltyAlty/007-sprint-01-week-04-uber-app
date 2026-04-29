@@ -6,7 +6,7 @@ import { setupSwagger } from './core/swagger/setup-swagger';
 import { ridesRouter } from './rides/routers/rides.router';
 import { SETTINGS } from './core/settings/settings';
 
-/*Создаем функцию "setupApp()" для конфигурирования экземпляров приложения Express.*/
+/*Функция "setupApp()" для конфигурирования экземпляров приложения Express.*/
 export const setupApp = async (app: Express) => {
   /*Подключаем middleware для парсинга JSON в теле запроса.*/
   app.use(express.json());

@@ -1,7 +1,7 @@
-import { CreateRideInputDTO } from '../../../src/rides/dto/create-ride.input-dto';
-import { Currency } from '../../../src/rides/types/ride.type';
+import { CreateRideAttributesInputDTO } from '../../../src/rides/application/dto/create-ride-attributes.input-dto';
+import { Currency } from '../../../src/rides/types/currency.type';
 
-export const getCreateRideInputDTO = (driverId: string): CreateRideInputDTO => {
+export const getCreateRideInputDTO = (driverId: string): CreateRideAttributesInputDTO => {
   return {
     driverId,
     clientName: 'Bob',

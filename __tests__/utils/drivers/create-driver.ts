@@ -1,26 +1,34 @@
 import request from 'supertest';
-import { CreateDriverInputDTO } from '../../../src/drivers/dto/create-driver.input-dto';
 import { Express } from 'express';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import { generateBasicAuthToken } from '../auth/generate-admin-auth-token';
 import { getCreateDriverInputDTO } from './get-create-driver-input-dto';
-import { DriverViewModel } from '../../../src/drivers/models/driver.view-model';
 import { SETTINGS } from '../../../src/core/settings/settings';
+import { CreateDriverAttributesInputDTO } from '../../../src/drivers/application/dto/create-driver-attributes.input-dto';
+import { WrappedDriverOutputDTO } from '../../../src/drivers/routers/output-dto/wrapped-driver.output-dto';
+import { CreateDriverDataInputDTO } from '../../../src/drivers/routers/input-dto/create-driver-data.input-dto';
+import { ResourceType } from '../../../src/core/types/domain/resource-type';
 
-/*Создаем функцию "createDriver()", создающую водителя и возвращающую данные о нем, для целей тестирования.*/
-export const createDriver = async (app: Express, driverDto?: CreateDriverInputDTO): Promise<DriverViewModel> => {
+/*Функция "createDriver()", создающая водителя и возвращающая данные о нем, для целей тестирования.*/
+export const createDriver = async (
+  app: Express,
+  driverDTO?: CreateDriverAttributesInputDTO,
+): Promise<WrappedDriverOutputDTO> => {
   /*Получаем DTO с корректными данными для создания водителя для целей тестирования.*/
-  const defaultDriverData: CreateDriverInputDTO = getCreateDriverInputDTO();
-  /*Разбавляем полученный DTO другими данными, если таковые были переданы.*/
-  const testDriverData = { ...defaultDriverData, ...driverDto };
+  const testDriverData: CreateDriverDataInputDTO = {
+    data: {
+      type: ResourceType.Drivers,
+      attributes: { ...getCreateDriverInputDTO(), ...driverDTO },
+    },
+  };
 
   /*Создаем водителя.*/
-  const createdDriverResponse = await request(app)
+  const createDriverResponse = await request(app)
     .post(SETTINGS.DRIVERS_PATH)
     .set('Authorization', generateBasicAuthToken())
     .send(testDriverData)
     .expect(HttpStatus.Created);
 
   /*Возвращаем тело ответа.*/
-  return createdDriverResponse.body;
+  return createDriverResponse.body;
 };

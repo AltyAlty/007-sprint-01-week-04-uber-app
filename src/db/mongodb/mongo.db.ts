@@ -7,7 +7,7 @@ export let client: MongoClient;
 export let driversCollection: Collection<DriverType>;
 export let ridesCollection: Collection<RideType>;
 
-/*Создаем функцию "runDB()" для подключения к серверу MongoDB.*/
+/*Функция "runDB()" для подключения к серверу MongoDB.*/
 export const runDB = async (url: string, dbName: string): Promise<void> => {
   /*Создаем клиента для MongoDB.*/
   client = new MongoClient(url);
@@ -28,7 +28,7 @@ export const runDB = async (url: string, dbName: string): Promise<void> => {
   }
 };
 
-/*Создаем функцию "stopDb()" для отключения от сервера MongoDB.*/
+/*Функция "stopDb()" для отключения от сервера MongoDB.*/
 export const stopDb = async () => {
   if (!client) throw new Error(`❌ No MongoDB clients`);
   await client.close();
