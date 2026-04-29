@@ -1,10 +1,8 @@
 import { driversRepository } from '../repositories/drivers.repository';
-import { WithId } from 'mongodb';
 import { ridesRepository } from '../../rides/repositories/rides.repository';
 import { DomainError } from '../../core/errors/domain.error';
 import { DriverType } from '../types/driver.type';
 import { CreateDriverAttributesInputDTO } from './dto/create-driver-attributes.input-dto';
-import { GetDriversListQueryInputDTO } from '../routers/input-dto/get-drivers-list-query.input-dto';
 import { UpdateDriverAttributesInputDTO } from './dto/update-driver-attributes.input-dto';
 
 /*Тип для ошибок, которые возникают во время обработки водителей на BLL уровне.*/
@@ -14,18 +12,6 @@ export enum DriverErrorCode {
 
 /*Сервис "driversService" для работы с данными по водителям.*/
 export const driversService = {
-  /*Метод "findMany()" для поиска данных по водителям.*/
-  async findMany(queryDTO: GetDriversListQueryInputDTO): Promise<{ items: WithId<DriverType>[]; totalCount: number }> {
-    /*Просим репозиторий "driversRepository" найти данные по водителям в БД.*/
-    return driversRepository.findMany(queryDTO);
-  },
-
-  /*Метод "findByIdOrFail()" для поиска данных по водителю по ID.*/
-  async findById(id: string): Promise<WithId<DriverType>> {
-    /*Просим репозиторий "driversRepository" найти данные по водителю по ID в БД.*/
-    return driversRepository.findById(id);
-  },
-
   /*Метод "create()" для добавления нового водителя.*/
   async create(dto: CreateDriverAttributesInputDTO): Promise<string> {
     /*Создаем объект с данными нового водителя.*/

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { driversService } from '../../application/drivers.service';
 import { errorsHandler } from '../../../core/errors/errors.handler';
-import { mapToPaginatedDriversListOutputDTO } from '../mappers/map-to-paginated-drivers-list-output-dto.util';
+import { mapToPaginatedDriversListOutputDTO } from '../../repositories/mappers/map-to-paginated-drivers-list-output-dto.util';
 import { matchedData } from 'express-validator';
 import { applyDefaultPaginationSettings } from '../../../core/utils/apply-default-pagination-settings ';
 import { GetDriversListQueryInputDTO } from '../input-dto/get-drivers-list-query.input-dto';
+import { driversQueryRepository } from '../../repositories/drivers.query-repository';
 
 /*Функция-обработчик "getDriversListHandler()" для GET-запросов для получения данных по всем водителям при помощи
 query-параметров.*/
@@ -23,8 +23,10 @@ export async function getDriversListHandler(req: Request<{}, {}, {}, GetDriversL
     /*Добавляем к объекту с query-параметрами поля, чтобы этот объект соответствовал типу
     "defaultPaginationSettingsType".*/
     const sanitizedQueryInputWithDefaultPaginationSettings = applyDefaultPaginationSettings(sanitizedQueryInput);
-    /*Просим сервис "driversService" найти данные по водителям.*/
-    const { items, totalCount } = await driversService.findMany(sanitizedQueryInputWithDefaultPaginationSettings);
+    /*Просим query-репозиторий "driversQueryRepository" найти данные по водителям.*/
+    const { items, totalCount } = await driversQueryRepository.findMany(
+      sanitizedQueryInputWithDefaultPaginationSettings,
+    );
 
     /*Преобразовываем данные по водителям из БД в подготовленные для пагинации данные по водителям.*/
     const paginatedDriversListOutput = mapToPaginatedDriversListOutputDTO(items, {

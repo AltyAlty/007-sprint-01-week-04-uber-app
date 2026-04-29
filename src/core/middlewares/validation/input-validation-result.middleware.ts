@@ -4,10 +4,10 @@ import { FieldValidationError, ValidationError, validationResult } from 'express
 import { NextFunction, Request, Response } from 'express';
 import { InternalValidationErrorType } from '../../types/validation/internal-validation-error.type';
 import { HttpStatus } from '../../types/http-statuses';
-import { ValidationErrorListOutputDto } from '../../types/validation/validation-error-list.output-dto';
+import { ValidationErrorsListOutputDTO } from '../../types/validation/validation-errors-list.output-dto';
 
 /*Функция "createErrorMessages()" формирует объект с сообщения об ошибках валидации, отправляемых клиенту.*/
-export const createErrorMessages = (errors: InternalValidationErrorType[]): ValidationErrorListOutputDto => {
+export const createErrorMessages = (errors: InternalValidationErrorType[]): ValidationErrorsListOutputDTO => {
   return {
     errors: errors.map((error) => ({
       status: error.status,

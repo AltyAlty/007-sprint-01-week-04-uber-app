@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { ridesService } from '../../application/rides.service';
 import { errorsHandler } from '../../../core/errors/errors.handler';
-import { mapToPaginatedRidesListOutputDTO } from '../mappers/map-to-paginated-rides-list-paginated-output-dto.util';
+import { mapToPaginatedRidesListOutputDTO } from '../../repositories/mappers/map-to-paginated-rides-list-paginated-output-dto.util';
 import { matchedData } from 'express-validator';
 import { GetRidesListQueryInputDTO } from '../input-dto/get-rides-list-query.input-dto';
 import { applyDefaultPaginationSettings } from '../../../core/utils/apply-default-pagination-settings ';
+import { ridesQueryRepository } from '../../repositories/rides.query-repository';
 
 export async function getRidesListHandler(req: Request<{}, {}, {}, GetRidesListQueryInputDTO>, res: Response) {
   try {
@@ -14,7 +14,7 @@ export async function getRidesListHandler(req: Request<{}, {}, {}, GetRidesListQ
     });
 
     const sanitizedQueryInputWithDefaultPaginationSettings = applyDefaultPaginationSettings(sanitizedQueryInput);
-    const { items, totalCount } = await ridesService.findMany(sanitizedQueryInputWithDefaultPaginationSettings);
+    const { items, totalCount } = await ridesQueryRepository.findMany(sanitizedQueryInputWithDefaultPaginationSettings);
 
     const paginatedRidesListOutput = mapToPaginatedRidesListOutputDTO(items, {
       pageNumber: sanitizedQueryInputWithDefaultPaginationSettings.pageNumber,

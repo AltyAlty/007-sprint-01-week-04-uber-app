@@ -1,11 +1,20 @@
 import { WithId } from 'mongodb';
 import { ResourceType } from '../../../core/types/domain/resource-type';
-import { WrappedRideOutputDTO } from '../output-dto/wrapped-ride.output-dto';
 import { RideType } from '../../types/ride.type';
+import { PaginatedRidesListOutputDTO } from '../../routers/output-dto/paginated-rides-list.output-dto';
 
-export function mapToWrappedRideOutputDTO(ride: WithId<RideType>): WrappedRideOutputDTO {
+export function mapToPaginatedRidesListOutputDTO(
+  rides: WithId<RideType>[],
+  meta: { pageNumber: number; pageSize: number; totalCount: number },
+): PaginatedRidesListOutputDTO {
   return {
-    data: {
+    meta: {
+      page: meta.pageNumber,
+      pageSize: meta.pageSize,
+      pageCount: Math.ceil(meta.totalCount / meta.pageSize),
+      totalCount: meta.totalCount,
+    },
+    data: rides.map((ride) => ({
       type: ResourceType.Rides,
       id: ride._id.toString(),
       attributes: {
@@ -18,6 +27,6 @@ export function mapToWrappedRideOutputDTO(ride: WithId<RideType>): WrappedRideOu
         finishedAt: ride.finishedAt,
         addresses: ride.addresses,
       },
-    },
+    })),
   };
 }

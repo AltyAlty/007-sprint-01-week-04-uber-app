@@ -1,7 +1,7 @@
 import { WithId } from 'mongodb';
 import { ResourceType } from '../../../core/types/domain/resource-type';
 import { DriverType } from '../../types/driver.type';
-import { WrappedDriverOutputDTO } from '../output-dto/wrapped-driver.output-dto';
+import { WrappedDriverOutputDTO } from '../../routers/output-dto/wrapped-driver.output-dto';
 
 /*Функция "mapToWrappedDriverOutputDTO()" преобразовывает данные по водителю из БД в подготовленные для отправки клиенту
 данные по водителю.*/

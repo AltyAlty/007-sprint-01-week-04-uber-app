@@ -1,8 +1,8 @@
 import { WithId } from 'mongodb';
 import { ResourceType } from '../../../core/types/domain/resource-type';
 import { DriverType } from '../../types/driver.type';
-import { PaginatedDriversListOutputDTO } from '../output-dto/paginated-drivers-list.output-dto';
-import { DriverOutputDTO } from '../output-dto/driver.output-dto';
+import { PaginatedDriversListOutputDTO } from '../../routers/output-dto/paginated-drivers-list.output-dto';
+import { DriverOutputDTO } from '../../routers/output-dto/driver.output-dto';
 
 /*Функция "mapToPaginatedDriversListOutputDTO()" преобразовывает данные по водителям из БД в подготовленные для пагинации
 данные по водителям.*/

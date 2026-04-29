@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { HttpStatus } from '../../../core/types/http-statuses';
-import { mapToWrappedDriverOutputDTO } from '../mappers/map-to-wrapped-driver-output-dto.util';
-import { driversService } from '../../application/drivers.service';
+import { mapToWrappedDriverOutputDTO } from '../../repositories/mappers/map-to-wrapped-driver-output-dto.util';
 import { errorsHandler } from '../../../core/errors/errors.handler';
+import { driversQueryRepository } from '../../repositories/drivers.query-repository';
 
 /*"Request" из Express используется для типизации параметра "req", а "Response" из Express используется для типизации
 параметра "res".
@@ -18,8 +18,8 @@ import { errorsHandler } from '../../../core/errors/errors.handler';
 export async function getDriverByIdHandler(req: Request<{ id: string }>, res: Response) {
   try {
     const id = req.params.id;
-    /*Просим сервис "driversService" найти данные по водителю по ID.*/
-    const driver = await driversService.findById(id);
+    /*Просим query-репозиторий "driversQueryRepository" найти данные по водителю по ID в БД.*/
+    const driver = await driversQueryRepository.findById(id);
     /*Преобразовываем данные по водителю из БД в подготовленные для отправки клиенту данные по водителю.*/
     const driverOutput = mapToWrappedDriverOutputDTO(driver);
     /*Отправляем преобразованные для отправки данные клиенту.*/

@@ -7,7 +7,7 @@ export const superAdminGuardMiddleware = (req: Request, res: Response, next: Nex
   /*Получаем заголовок "Authorization" из запроса. Должно быть вида "Basic <base64-encoded-credentials>"*/
   const auth = req.headers['authorization'] as string;
 
-  /*Если получить заголовок "Authorization" не удалось, то  сообщаем об этом клиенту.*/
+  /*Если получить заголовок "Authorization" не удалось, то сообщаем об этом клиенту.*/
   if (!auth) {
     res.sendStatus(HttpStatus.Unauthorized);
     return;
