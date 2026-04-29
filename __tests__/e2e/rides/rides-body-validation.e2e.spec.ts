@@ -5,9 +5,9 @@ import { setupApp } from '../../../src/setup-app';
 import { generateBasicAuthToken } from '../../utils/auth/generate-admin-auth-token';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import { clearDb } from '../../utils/db/clear-db';
-import { Currency } from '../../../src/rides/types/ride';
 import { runDB, stopDb } from '../../../src/db/mongodb/mongo.db';
 import { SETTINGS } from '../../../src/core/settings/settings';
+import { Currency } from '../../../src/rides/domain/ride';
 
 describe('Rides API body validation check', () => {
   const app = express();

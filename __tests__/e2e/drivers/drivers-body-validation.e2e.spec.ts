@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import request from 'supertest';
 import { setupApp } from '../../../src/setup-app';
-import { VehicleFeature } from '../../../src/drivers/types/driver';
 import { CreateDriverInputDTO } from '../../../src/drivers/dto/create-driver.input-dto';
 import { HttpStatus } from '../../../src/core/types/http-statuses';
 import { generateBasicAuthToken } from '../../utils/auth/generate-admin-auth-token';
@@ -12,6 +11,7 @@ import { createDriver } from '../../utils/drivers/create-driver';
 import { getDriverById } from '../../utils/drivers/get-driver-by-id';
 import { runDB, stopDb } from '../../../src/db/mongodb/mongo.db';
 import { SETTINGS } from '../../../src/core/settings/settings';
+import { VehicleFeature } from '../../../src/drivers/domain/driver.type';
 
 describe('Drivers API body validation check', () => {
   const app = express();

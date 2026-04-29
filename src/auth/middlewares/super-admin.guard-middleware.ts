@@ -2,11 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import { HttpStatus } from '../../core/types/http-statuses';
 import { SETTINGS } from '../../core/settings/settings';
 
+/*Middleware "superAdminGuardMiddleware" отвечает за базовую авторизацию в приложении.*/
 export const superAdminGuardMiddleware = (req: Request, res: Response, next: NextFunction) => {
   /*Получаем заголовок "Authorization" из запроса. Должно быть вида "Basic <base64-encoded-credentials>"*/
   const auth = req.headers['authorization'] as string;
 
-  /*Если получить заголовок "Authorization" не удалось, то сообщаем об этом клиенту.*/
+  /*Если получить заголовок "Authorization" не удалось, то  сообщаем об этом клиенту.*/
   if (!auth) {
     res.sendStatus(HttpStatus.Unauthorized);
     return;

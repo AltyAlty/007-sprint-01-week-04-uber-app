@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { HttpStatus } from '../../core/types/http-statuses';
-import { driverCollection, rideCollection } from '../../db/mongodb/mongo.db';
+import { driversCollection, ridesCollection } from '../../db/mongodb/mongo.db';
 
 /*Создаем роутер из Express для тестирования приложения.*/
 export const testingRouter = Router({});
@@ -9,6 +9,6 @@ export const testingRouter = Router({});
 testingRouter
   /*DELETE-запрос для очистки БД с данными по водителям для целей тестирования.*/
   .delete('/all-data', async (req: Request, res: Response) => {
-    await Promise.all([rideCollection.deleteMany(), driverCollection.deleteMany()]);
+    await Promise.all([ridesCollection.deleteMany(), driversCollection.deleteMany()]);
     res.sendStatus(HttpStatus.NoContent);
   });

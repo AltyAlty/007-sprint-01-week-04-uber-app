@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { Driver } from '../../types/driver';
 import { HttpStatus } from '../../../core/types/http-statuses';
-import { driversRepository } from '../../repositories/drivers.repository';
-import { mapToDriverViewModel } from '../mappers/map-to-driver-view-model.util';
-import { createErrorMessages } from '../../../core/middlewares/validation/input-validation-result.middleware';
+import { mapToWrappedDriverOutputDTO } from '../mappers/map-to-wrapped-driver-output-dto.util';
+import { driversService } from '../../application/drivers.service';
+import { errorsHandler } from '../../../core/errors/errors.handler';
 
 /*"Request" из Express используется для типизации параметра "req", а "Response" из Express используется для типизации
 параметра "res".
@@ -15,28 +14,18 @@ import { createErrorMessages } from '../../../core/middlewares/validation/input-
 3. На третьем месте в типе идет "ReqBody". Это то, что приходит в body в запросе.
 4. На четвертом месте в типе идут Query-параметры.
 
-Создаем функцию-обработчик "getDriverByIdHandler()" для GET-запросов для поиска водителя по ID при помощи
-URI-параметров.*/
-export const getDriverByIdHandler = async (
-  req: Request<{ id: string }, Driver, {}, {}>,
-  res: Response<Driver | null | unknown>,
-) => {
+Функция-обработчик "getDriverByIdHandler()" для GET-запросов для поиска водителя по ID при помощи URI-параметров.*/
+export async function getDriverByIdHandler(req: Request<{ id: string }>, res: Response) {
   try {
     const id = req.params.id;
-    /*Просим репозиторий "driversRepository" найти водителя по ID в БД.*/
-    const driver = await driversRepository.findById(id);
-
-    /*Если водитель не был найден, то сообщаем об этом клиенту.*/
-    if (!driver) {
-      res.status(HttpStatus.NotFound).send(createErrorMessages([{ field: 'id', message: 'Driver was not found' }]));
-      return;
-    }
-
-    /*Если водитель был найден, то сообщаем об этом клиенту.*/
-    const driverViewModel = mapToDriverViewModel(driver);
-    res.status(HttpStatus.Ok).send(driverViewModel);
+    /*Просим сервис "driversService" найти данные по водителю по ID.*/
+    const driver = await driversService.findById(id);
+    /*Преобразовываем данные по водителю из БД в подготовленные для отправки клиенту данные по водителю.*/
+    const driverOutput = mapToWrappedDriverOutputDTO(driver);
+    /*Отправляем преобразованные для отправки данные клиенту.*/
+    res.status(HttpStatus.Ok).send(driverOutput);
   } catch (error: unknown) {
-    console.log(error);
-    res.sendStatus(HttpStatus.InternalServerError);
+    /*Если была перехвачена ошибка, то обрабатываем ее.*/
+    errorsHandler(error, res);
   }
-};
+}

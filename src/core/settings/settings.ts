@@ -9,8 +9,8 @@ export const SETTINGS = {
   DB_NAME: process.env.DB_NAME || '007-sprint-01-week-04-uber-app',
   TEST_DB_NAME: process.env.DB_NAME || '007-sprint-01-week-04-uber-app-test',
 
-  DRIVER_COLLECTION_NAME: 'drivers',
-  RIDE_COLLECTION_NAME: 'rides',
+  DRIVERS_COLLECTION_NAME: 'drivers',
+  RIDES_COLLECTION_NAME: 'rides',
 
   BASIC_AUTH_ADMIN_USERNAME: process.env.BASIC_AUTH_ADMIN_USERNAME,
   BASIC_AUTH_ADMIN_PASSWORD: process.env.BASIC_AUTH_ADMIN_PASSWORD,

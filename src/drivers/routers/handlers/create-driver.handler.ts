@@ -1,36 +1,23 @@
 import { Request, Response } from 'express';
-import { CreateDriverInputDTO } from '../../dto/create-driver.input-dto';
 import { HttpStatus } from '../../../core/types/http-statuses';
-import { Driver } from '../../types/driver';
-import { driversRepository } from '../../repositories/drivers.repository';
-import { mapToDriverViewModel } from '../mappers/map-to-driver-view-model.util';
+import { driversService } from '../../application/drivers.service';
+import { errorsHandler } from '../../../core/errors/errors.handler';
+import { mapToWrappedDriverOutputDTO } from '../mappers/map-to-wrapped-driver-output-dto.util';
+import { CreateDriverDataInputDTO } from '../input-dto/create-driver-data.input-dto';
 
-/*Создаем функцию-обработчик "createDriverHandler()" для POST-запросов для добавления нового водителя.*/
-export const createDriverHandler = async (req: Request<{}, {}, CreateDriverInputDTO>, res: Response) => {
+/*Функция-обработчик "createDriverHandler()" для POST-запросов для добавления нового водителя.*/
+export async function createDriverHandler(req: Request<{}, {}, CreateDriverDataInputDTO>, res: Response) {
   try {
-    /*Создаем объект с данными нового водителя.*/
-    const newDriver: Driver = {
-      name: req.body.name,
-      phoneNumber: req.body.phoneNumber,
-      email: req.body.email,
-      vehicle: {
-        make: req.body.vehicleMake,
-        model: req.body.vehicleModel,
-        year: req.body.vehicleYear,
-        licensePlate: req.body.vehicleLicensePlate,
-        description: req.body.vehicleDescription,
-        features: req.body.vehicleFeatures,
-      },
-      createdAt: new Date(),
-    };
-
-    /*Просим репозиторий "driversRepository" создать нового водителя в БД.*/
-    const createdDriver = await driversRepository.create(newDriver);
-    const driverViewModel = mapToDriverViewModel(createdDriver);
-    /*Сообщаем об успешном добавлении нового водителя клиенту.*/
-    res.status(HttpStatus.Created).send(driverViewModel);
+    /*Просим сервис "driversService" создать нового водителя.*/
+    const createdDriverId = await driversService.create(req.body.data.attributes);
+    /*Просим сервис "driversService" найти данные по созданному водителю по ID.*/
+    const createdDriver = await driversService.findById(createdDriverId);
+    /*Преобразовываем данные по водителю из БД в подготовленные для отправки клиенту данные по водителю.*/
+    const driverOutput = mapToWrappedDriverOutputDTO(createdDriver);
+    /*Отправляем преобразованные для отправки данные клиенту.*/
+    res.status(HttpStatus.Created).send(driverOutput);
   } catch (error: unknown) {
-    console.log(error);
-    res.sendStatus(HttpStatus.InternalServerError);
+    /*Если была перехвачена ошибка, то обрабатываем ее.*/
+    errorsHandler(error, res);
   }
-};
+}
