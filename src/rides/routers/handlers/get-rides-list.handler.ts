@@ -3,8 +3,8 @@ import { errorsHandler } from '../../../core/errors/errors.handler';
 import { mapToPaginatedRidesListOutputDTO } from '../../repositories/mappers/map-to-paginated-rides-list-paginated-output-dto.util';
 import { matchedData } from 'express-validator';
 import { GetRidesListQueryInputDTO } from '../input-dto/get-rides-list-query.input-dto';
-import { applyDefaultPaginationSettings } from '../../../core/utils/apply-default-pagination-settings ';
 import { ridesQueryRepository } from '../../repositories/rides.query-repository';
+import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings ';
 
 export const getRidesListHandler = async (req: Request<{}, {}, {}, GetRidesListQueryInputDTO>, res: Response) => {
   try {

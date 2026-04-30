@@ -4,7 +4,7 @@ import { DriverType } from '../types/driver.type';
 import { driversCollection } from '../../db/mongodb/mongo.db';
 import { RepositoryNotFoundError } from '../../core/errors/repository-not-found.error';
 
-/*Query-репозиторий "driversQueryRepository" для работы с данными по водителям в БД, игнорируя BLL уровень.*/
+/*Query-репозиторий "driversQueryRepository" для работы с данными по водителям в БД, игнорируя BLL.*/
 export const driversQueryRepository = {
   /*Метод "findMany()" для поиска данных по водителям в БД.*/
   async findMany(queryDTO: GetDriversListQueryInputDTO): Promise<{ items: WithId<DriverType>[]; totalCount: number }> {

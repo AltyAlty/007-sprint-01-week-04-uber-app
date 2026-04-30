@@ -5,7 +5,7 @@ import { DriverType } from '../types/driver.type';
 import { CreateDriverAttributesInputDTO } from './dto/create-driver-attributes.input-dto';
 import { UpdateDriverAttributesInputDTO } from './dto/update-driver-attributes.input-dto';
 
-/*Тип для ошибок, которые возникают во время обработки водителей на BLL уровне.*/
+/*Тип для ошибок, которые возникают во время обработки водителей в BLL.*/
 export enum DriverErrorCode {
   HasActiveRide = 'DRIVER_HAS_ACTIVE_RIDE',
 }

@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import { errorsHandler } from '../../../core/errors/errors.handler';
 import { mapToPaginatedDriversListOutputDTO } from '../../repositories/mappers/map-to-paginated-drivers-list-output-dto.util';
 import { matchedData } from 'express-validator';
-import { applyDefaultPaginationSettings } from '../../../core/utils/apply-default-pagination-settings ';
 import { GetDriversListQueryInputDTO } from '../input-dto/get-drivers-list-query.input-dto';
 import { driversQueryRepository } from '../../repositories/drivers.query-repository';
+import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings ';
 
 /*Функция-обработчик "getDriversListHandler()" для GET-запросов для получения данных по всем водителям при помощи
 query-параметров.*/

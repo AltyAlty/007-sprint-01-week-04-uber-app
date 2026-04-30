@@ -23,7 +23,7 @@ export const errorsHandler = (error: unknown, res: Response): void => {
     return;
   }
 
-  /*Если же перехваченная ошибка является ошибкой, когда к сущности нельзя применить какую-то операцию на BLL уровне, то
+  /*Если же перехваченная ошибка является ошибкой, когда к сущности нельзя применить какую-то операцию в BLL, то
   сообщаем об этом клиенту.*/
   if (error instanceof DomainError) {
     const httpStatus = HttpStatus.UnprocessableEntity;
