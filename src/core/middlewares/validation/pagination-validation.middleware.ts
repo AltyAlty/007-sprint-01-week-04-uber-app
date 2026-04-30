@@ -42,7 +42,7 @@ export const paginationValidationMiddleWare = <T extends string>(sortFieldsEnum:
       .default(DEFAULT_PAGE_NUMBER)
       .isInt({ min: 1 })
       .withMessage('Page number must be a positive integer')
-      /*Преобразуем строку в целое число.*/
+      /*Преобразовываем строку в целое число.*/
       .toInt(),
 
     query('pageSize')

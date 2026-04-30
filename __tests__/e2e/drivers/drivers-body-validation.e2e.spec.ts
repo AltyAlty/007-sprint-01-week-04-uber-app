@@ -38,7 +38,7 @@ describe('Drivers API body validation check', () => {
       },
     };
 
-    await request(app).post(SETTINGS.DRIVERS_PATH).send(correctTestDriverData).expect(HttpStatus.Unauthorized);
+    await request(app).post(SETTINGS.DRIVERS_PATH).send(correctTestDriverData).expect(HttpStatus.Unauthorized_401);
 
     const invalidDataSet1 = await request(app)
       .post(SETTINGS.DRIVERS_PATH)
@@ -59,7 +59,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet1.body.errors).toHaveLength(4);
 
@@ -82,7 +82,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet2.body.errors).toHaveLength(4);
 
@@ -105,7 +105,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet3.body.errors).toHaveLength(4);
     const getDriverListResponse = await request(app).get(SETTINGS.DRIVERS_PATH).set('Authorization', adminToken);
@@ -144,7 +144,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet1.body.errors).toHaveLength(4);
 
@@ -167,7 +167,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet2.body.errors).toHaveLength(3);
 
@@ -190,7 +190,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     expect(invalidDataSet3.body.errors).toHaveLength(1);
     const getDriverResponse = await getDriverById(app, createdDriverId);
@@ -229,7 +229,7 @@ describe('Drivers API body validation check', () => {
           },
         },
       })
-      .expect(HttpStatus.BadRequest);
+      .expect(HttpStatus.BadRequest_404);
 
     const getDriverResponse = await getDriverById(app, createdDriverId);
     expect(getDriverResponse).toEqual({ ...createdDriver });

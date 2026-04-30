@@ -17,7 +17,7 @@ export const createDriverHandler = async (req: Request<{}, {}, CreateDriverDataI
     означает, что мы гарантируем "createdDriver" не null или undefined в этом месте.*/
     const driverOutput = mapToWrappedDriverOutputDTO(createdDriver!);
     /*Отправляем преобразованные для отправки данные клиенту.*/
-    res.status(HttpStatus.Created).send(driverOutput);
+    res.status(HttpStatus.Created_201).send(driverOutput);
   } catch (error: unknown) {
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);

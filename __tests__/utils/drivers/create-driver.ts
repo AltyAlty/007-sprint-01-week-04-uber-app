@@ -27,7 +27,7 @@ export const createDriver = async (
     .post(SETTINGS.DRIVERS_PATH)
     .set('Authorization', generateBasicAuthToken())
     .send(testDriverData)
-    .expect(HttpStatus.Created);
+    .expect(HttpStatus.Created_201);
 
   /*Возвращаем тело ответа.*/
   return createDriverResponse.body;

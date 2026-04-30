@@ -7,7 +7,7 @@ export const finishRideHandler = async (req: Request<{ id: string }, {}, {}>, re
   try {
     const id = req.params.id;
     await ridesService.finishRide(id);
-    res.sendStatus(HttpStatus.NoContent);
+    res.sendStatus(HttpStatus.NoContent_204);
   } catch (error: unknown) {
     errorsHandler(error, res);
   }

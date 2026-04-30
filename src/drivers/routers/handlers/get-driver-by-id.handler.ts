@@ -23,7 +23,7 @@ export const getDriverByIdHandler = async (req: Request<{ id: string }>, res: Re
     /*Преобразовываем данные по водителю из БД в подготовленные для отправки клиенту данные по водителю.*/
     const driverOutput = mapToWrappedDriverOutputDTO(driver);
     /*Отправляем преобразованные для отправки данные клиенту.*/
-    res.status(HttpStatus.Ok).send(driverOutput);
+    res.status(HttpStatus.Ok_200).send(driverOutput);
   } catch (error: unknown) {
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);

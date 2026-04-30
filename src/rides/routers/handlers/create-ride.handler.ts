@@ -11,7 +11,7 @@ export const createRideHandler = async (req: Request<{}, {}, CreateRideDataInput
     const createdRideId = await ridesService.create(req.body.data.attributes);
     const createdRide = await ridesQueryRepository.findById(createdRideId);
     const rideOutput = mapToWrappedRideOutputDTO(createdRide);
-    res.status(HttpStatus.Created).send(rideOutput);
+    res.status(HttpStatus.Created_201).send(rideOutput);
   } catch (error: unknown) {
     errorsHandler(error, res);
   }

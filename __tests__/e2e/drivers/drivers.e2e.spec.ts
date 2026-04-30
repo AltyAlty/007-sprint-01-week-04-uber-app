@@ -48,7 +48,7 @@ describe('Drivers API', () => {
     const getDriverListResponse = await request(app)
       .get(SETTINGS.DRIVERS_PATH)
       .set('Authorization', adminToken)
-      .expect(HttpStatus.Ok);
+      .expect(HttpStatus.Ok_200);
 
     expect(getDriverListResponse.body.data).toBeInstanceOf(Array);
     expect(getDriverListResponse.body.data.length).toBeGreaterThanOrEqual(2);
@@ -107,11 +107,11 @@ describe('Drivers API', () => {
     await request(app)
       .delete(`${SETTINGS.DRIVERS_PATH}/${createdDriverId}`)
       .set('Authorization', adminToken)
-      .expect(HttpStatus.NoContent);
+      .expect(HttpStatus.NoContent_204);
 
     await request(app)
       .get(`${SETTINGS.DRIVERS_PATH}/${createdDriverId}`)
       .set('Authorization', adminToken)
-      .expect(HttpStatus.NotFound);
+      .expect(HttpStatus.NotFound_404);
   });
 });

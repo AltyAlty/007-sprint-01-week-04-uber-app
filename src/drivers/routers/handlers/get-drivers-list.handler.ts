@@ -23,6 +23,7 @@ export const getDriversListHandler = async (req: Request<{}, {}, {}, GetDriversL
     /*Добавляем к объекту с query-параметрами поля, чтобы этот объект соответствовал типу
     "defaultPaginationSettingsType".*/
     const sanitizedQueryInputWithDefaultPaginationSettings = applyDefaultPaginationSettings(sanitizedQueryInput);
+
     /*Просим query-репозиторий "driversQueryRepository" найти данные по водителям.*/
     const { items, totalCount } = await driversQueryRepository.findMany(
       sanitizedQueryInputWithDefaultPaginationSettings,

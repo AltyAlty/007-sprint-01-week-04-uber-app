@@ -28,7 +28,7 @@ export const updateDriverById = async (
     .put(`${SETTINGS.DRIVERS_PATH}/${driverId}`)
     .set('Authorization', generateBasicAuthToken())
     .send(testDriverData)
-    .expect(HttpStatus.NoContent);
+    .expect(HttpStatus.NoContent_204);
 
   /*Возвращаем тело ответа.*/
   return updateDriverResponse.body;

@@ -9,7 +9,7 @@ export const getRideByIdHandler = async (req: Request<{ id: string }>, res: Resp
     const id = req.params.id;
     const ride = await ridesQueryRepository.findById(id);
     const rideOutput = mapToWrappedRideOutputDTO(ride);
-    res.status(HttpStatus.Ok).send(rideOutput);
+    res.status(HttpStatus.Ok_200).send(rideOutput);
   } catch (error: unknown) {
     errorsHandler(error, res);
   }

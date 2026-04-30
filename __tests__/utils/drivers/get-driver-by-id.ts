@@ -11,7 +11,7 @@ export const getDriverById = async (app: Express, driverId: string): Promise<Wra
   const getDriverResponse = await request(app)
     .get(`${SETTINGS.DRIVERS_PATH}/${driverId}`)
     .set('Authorization', generateBasicAuthToken())
-    .expect(HttpStatus.Ok);
+    .expect(HttpStatus.Ok_200);
 
   /*Возвращаем тело ответа.*/
   return getDriverResponse.body;

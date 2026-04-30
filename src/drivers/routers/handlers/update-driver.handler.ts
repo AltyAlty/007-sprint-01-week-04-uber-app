@@ -15,7 +15,7 @@ export const updateDriverHandler = async (
     /*Просим сервис "driversService" изменить данные водителя по ID.*/
     await driversService.update(id, req.body.data.attributes);
     /*Сообщаем клиенту, что водитель был изменен.*/
-    res.sendStatus(HttpStatus.NoContent);
+    res.sendStatus(HttpStatus.NoContent_204);
   } catch (error: unknown) {
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);

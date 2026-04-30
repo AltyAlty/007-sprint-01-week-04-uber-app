@@ -30,7 +30,7 @@ describe('Rides API', () => {
     const getRidesListResponse = await request(app)
       .get(SETTINGS.RIDES_PATH)
       .set('Authorization', adminToken)
-      .expect(HttpStatus.Ok);
+      .expect(HttpStatus.Ok_200);
 
     expect(getRidesListResponse.body.data).toBeInstanceOf(Array);
     expect(getRidesListResponse.body.data).toHaveLength(2);
@@ -51,7 +51,7 @@ describe('Rides API', () => {
     await request(app)
       .post(`${SETTINGS.RIDES_PATH}/${createdRideId}/actions/finish`)
       .set('Authorization', adminToken)
-      .expect(HttpStatus.NoContent);
+      .expect(HttpStatus.NoContent_204);
 
     const getRideResponse = await getRideById(app, createdRideId);
 

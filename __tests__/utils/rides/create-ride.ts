@@ -27,7 +27,7 @@ export const createRide = async (
     .post(SETTINGS.RIDES_PATH)
     .set('Authorization', generateBasicAuthToken())
     .send(testRideData)
-    .expect(HttpStatus.Created);
+    .expect(HttpStatus.Created_201);
 
   return createRideResponse.body;
 };

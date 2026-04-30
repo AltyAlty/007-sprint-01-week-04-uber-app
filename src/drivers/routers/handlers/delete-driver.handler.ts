@@ -11,7 +11,7 @@ export const deleteDriverHandler = async (req: Request<{ id: string }>, res: Res
     /*Просим сервис "driversService" удалить водителя по ID.*/
     await driversService.delete(id);
     /*Сообщаем клиенту, что водитель был удален.*/
-    res.sendStatus(HttpStatus.NoContent);
+    res.sendStatus(HttpStatus.NoContent_204);
   } catch (error: unknown) {
     /*Если была перехвачена ошибка, то обрабатываем ее.*/
     errorsHandler(error, res);

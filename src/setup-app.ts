@@ -11,7 +11,7 @@ export const setupApp = async (app: Express) => {
   /*Подключаем middleware для парсинга JSON в теле запроса.*/
   app.use(express.json());
   /*GET-запрос для получения главной страницы.*/
-  app.get('/', (req: Request, res: Response) => res.status(HttpStatus.Ok).send('Hello World!'));
+  app.get('/', (req: Request, res: Response) => res.status(HttpStatus.Ok_200).send('Hello World!'));
   /*Подключаем роутеры.*/
   app.use(SETTINGS.DRIVERS_PATH, driversRouter);
   app.use(SETTINGS.TESTING_PATH, testingRouter);

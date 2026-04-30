@@ -10,5 +10,5 @@ testingRouter
   /*DELETE-запрос для очистки БД с данными по водителям для целей тестирования.*/
   .delete('/all-data', async (req: Request, res: Response) => {
     await Promise.all([ridesCollection.deleteMany(), driversCollection.deleteMany()]);
-    res.sendStatus(HttpStatus.NoContent);
+    res.sendStatus(HttpStatus.NoContent_204);
   });

@@ -24,7 +24,7 @@ const formInternalValidationError = (error: ValidationError): InternalValidation
   const expressError = error as unknown as FieldValidationError;
 
   return {
-    status: HttpStatus.BadRequest,
+    status: HttpStatus.BadRequest_404,
     detail: expressError.msg,
     source: expressError.path,
   };
@@ -40,7 +40,7 @@ export const inputValidationResultMiddleware = (req: Request<{}, {}, {}, {}>, re
 
   /*Если ошибки валидации были найдены, то сообщаем об этом клиенту.*/
   if (errors.length > 0) {
-    res.status(HttpStatus.BadRequest).json(createErrorMessages(errors));
+    res.status(HttpStatus.BadRequest_404).json(createErrorMessages(errors));
     return;
   }
   /*Если ошибок валидации не было найдено, то передаем управление следующему обработчику.*/
