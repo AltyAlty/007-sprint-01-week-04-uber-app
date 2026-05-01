@@ -4,7 +4,7 @@ import { mapToPaginatedDriversListOutputDTO } from '../../repositories/mappers/m
 import { matchedData } from 'express-validator';
 import { GetDriversListQueryInputDTO } from '../input-dto/get-drivers-list-query.input-dto';
 import { driversQueryRepository } from '../../repositories/drivers.query-repository';
-import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings ';
+import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings';
 
 /*Функция-обработчик "getDriversListHandler()" для GET-запросов для получения данных по всем водителям при помощи
 query-параметров.*/

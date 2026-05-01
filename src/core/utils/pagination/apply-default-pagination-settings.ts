@@ -1,7 +1,7 @@
 import { defaultPaginationSettings } from '../../middlewares/validation/pagination-validation.middleware';
 import { defaultPaginationSettingsType } from '../../types/pagination/default-pagination-settings.type';
 
-/*Функция "applyDefaultPaginationSettings ()" на основе объекта с query-параметрами, прошедшими обработку через функцию
+/*Функция "applyDefaultPaginationSettings()" на основе объекта с query-параметрами, прошедшими обработку через функцию
 "matchedData()", создает новый объект, который соответствует типу "defaultPaginationSettings".
 
 Касательно TS:

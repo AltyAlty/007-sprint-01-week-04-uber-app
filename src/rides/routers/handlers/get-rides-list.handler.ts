@@ -4,7 +4,7 @@ import { mapToPaginatedRidesListOutputDTO } from '../../repositories/mappers/map
 import { matchedData } from 'express-validator';
 import { GetRidesListQueryInputDTO } from '../input-dto/get-rides-list-query.input-dto';
 import { ridesQueryRepository } from '../../repositories/rides.query-repository';
-import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings ';
+import { applyDefaultPaginationSettings } from '../../../core/utils/pagination/apply-default-pagination-settings';
 
 export const getRidesListHandler = async (req: Request<{}, {}, {}, GetRidesListQueryInputDTO>, res: Response) => {
   try {
