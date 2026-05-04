@@ -324,10 +324,10 @@ OpenAPI 3.0 - это спецификация для описания RESTful AP
 2.5.2 "/src/core/types/pagination/" - типы для пагинации для всего приложения.
 2.5.3 "/src/core/types/validation/" - типы для валидации для всего приложения.
 2.6 "/src/core/utils/" - утилиты для всего приложения.
-2.6.1 "/src/core/utils/" - утилиты для пагинации для всего приложения.
+2.6.1 "/src/core/utils/pagination/" - утилиты для пагинации для всего приложения.
 
 3. "/src/db/" - код, связанный с БД.
-3.1 "/src/db/mongodb" - код, связанный с MongoDB.
+3.1 "/src/db/mongodb/" - код, связанный с MongoDB.
 3.2 "/src/db/mongodb/data/db/" - локальная БД MongoDB.
 
 4. "/src/drivers/" - код, связанный с водителями.
